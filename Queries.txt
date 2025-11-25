@@ -177,37 +177,38 @@ CREATE TABLE order_items (
 );
 
 -- Insert sample order items to match existing orders
--- Order 1: John Smith (total: 79.98) - Product A x2, Product E x1
+
+Order 1: John Smith (total: 79.98) - Product A x2, Product E x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (1, 1, 2, 29.99),  -- 2x Product A
 (1, 5, 1, 19.99);  -- 1x Product E
 
--- Order 2: Sarah Johnson (total: 149.97) - Product B x1, Product D x1
+Order 2: Sarah Johnson (total: 149.97) - Product B x1, Product D x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (2, 2, 1, 49.99),  -- 1x Product B
 (2, 4, 1, 99.99);  -- 1x Product D
 
--- Order 3: John Smith (total: 99.99) - Product D x1
+Order 3: John Smith (total: 99.99) - Product D x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (3, 4, 1, 99.99);  -- 1x Product D
 
--- Order 4: Michael Brown (total: 29.99) - Product A x1
+Order 4: Michael Brown (total: 29.99) - Product A x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (4, 1, 1, 29.99);  -- 1x Product A
 
--- Order 5: Emily Davis (total: 199.98) - Product D x2
+Order 5: Emily Davis (total: 199.98) - Product D x2
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (5, 4, 2, 99.99);  -- 2x Product D
 
--- Order 6: David Wilson (total: 49.99) - Product B x1
+Order 6: David Wilson (total: 49.99) - Product B x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (6, 2, 1, 49.99);  -- 1x Product B
 
--- Order 7: Sarah Johnson (total: 89.98) - Product C x2
+Order 7: Sarah Johnson (total: 89.98) - Product C x2
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (7, 3, 2, 39.99);  -- 2x Product C (old price before update)
 
--- Order 8: Michael Brown (total: 129.98) - Product C x1, Product D x1, Product A x1
+Order 8: Michael Brown (total: 129.98) - Product C x1, Product D x1, Product A x1
 INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES
 (8, 3, 1, 39.99),  -- 1x Product C
 (8, 4, 1, 99.99),  -- 1x Product D
