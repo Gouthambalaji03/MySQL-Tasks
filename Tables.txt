@@ -1,0 +1,167 @@
+-- Create the ecommerce database
+
+CREATE DATABASE ecommerce;
+
+-- Use the ecommerce database
+
+USE ecommerce;
+
+-- ============================================
+-- CREATE TABLES
+-- ============================================
+
+-- Create customers table
+-- Stores customer information
+
+CREATE TABLE customers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    address TEXT
+);
+
+OUTPUT: Table Structure  - "desc customer"
+
+id	int	NO	PRI		auto_increment
+name	varchar(100)	NO			
+email	varchar(100)	NO	UNI		
+address	text	YES			
+   
+
+
+-- Create products table
+-- Stores product catalog information
+
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT
+);
+
+OUTPUT: Table Structure  - "desc products"
+
+id	int	NO	PRI		auto_increment
+name	varchar(100)	NO			
+price	decimal(10,2)	NO			
+description	text	YES			
+
+
+-- Create orders table
+-- Stores order information with customer reference
+
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+);
+
+OUTPUT: Table Structure  - "desc orders"
+
+id	int	NO	PRI		auto_increment
+customer_id	int	NO	MUL		
+order_date	date	NO			
+total_amount	decimal(10,2)	NO	
+
+
+-- Create order_items table to store individual items in each order
+
+CREATE TABLE order_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price_at_purchase DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+OUTPUT: Table Structure  - "desc order_items"
+
+id	int	NO	PRI		auto_increment
+order_id	int	NO	MUL		
+product_id	int	NO	MUL		
+quantity	int	NO		1	
+price_at_purchase	decimal(10,2)	NO			
+
+
+
+
+
+-- ============================================
+-- INSERT SAMPLE DATA
+-- ============================================
+
+-- Insert sample customers
+
+INSERT INTO customers (name, email, address) VALUES
+('John Smith', 'john.smith@email.com', '123 Main St, New York, NY 10001'),
+('Sarah Johnson', 'sarah.j@email.com', '456 Oak Ave, Los Angeles, CA 90001'),
+('Michael Brown', 'michael.b@email.com', '789 Pine Rd, Chicago, IL 60601'),
+('Emily Davis', 'emily.d@email.com', '321 Elm St, Houston, TX 77001'),
+('David Wilson', 'david.w@email.com', '654 Maple Dr, Phoenix, AZ 85001');
+
+
+OUTPUT: Inserted vales in the tables - "SELECT * FROM customers"
+
+1	John Smith	john.smith@email.com	123 Main St, New York, NY 10001
+2	Sarah Johnson	sarah.j@email.com	456 Oak Ave, Los Angeles, CA 90001
+3	Michael Brown	michael.b@email.com	789 Pine Rd, Chicago, IL 60601
+4	Emily Davis	emily.d@email.com	321 Elm St, Houston, TX 77001
+5	David Wilson	david.w@email.com	654 Maple Dr, Phoenix, AZ 85001
+			
+
+
+
+-- Insert sample products
+
+INSERT INTO products (name, price, description) VALUES
+('Product A', 29.99, 'High-quality electronic gadget with advanced features'),
+('Product B', 49.99, 'Premium home appliance for everyday use'),
+('Product C', 39.99, 'Versatile tool for professionals and hobbyists'),
+('Product D', 99.99, 'Luxury item with exceptional build quality'),
+('Product E', 19.99, 'Affordable solution for basic needs');
+
+OUTPUT: Inserted vales in the tables - "SELECT * FROM products"
+
+1	Product A	29.99	High-quality electronic gadget with advanced features
+2	Product B	49.99	Premium home appliance for everyday use
+3	Product C	39.99	Versatile tool for professionals and hobbyists
+4	Product D	99.99	Luxury item with exceptional build quality
+5	Product E	19.99	Affordable solution for basic needs
+			
+
+
+
+-- Insert sample orders
+-- Recent orders (within last 30 days)
+
+INSERT INTO orders (customer_id, order_date, total_amount) VALUES
+(1, DATE_SUB(CURDATE(), INTERVAL 5 DAY), 79.98),   -- John Smith - recent
+(2, DATE_SUB(CURDATE(), INTERVAL 10 DAY), 149.97), -- Sarah Johnson - recent
+(1, DATE_SUB(CURDATE(), INTERVAL 15 DAY), 99.99),  -- John Smith - recent
+(3, DATE_SUB(CURDATE(), INTERVAL 20 DAY), 29.99),  -- Michael Brown - recent
+(4, DATE_SUB(CURDATE(), INTERVAL 25 DAY), 199.98), -- Emily Davis - recent
+-- Older orders (more than 30 days ago)
+(5, DATE_SUB(CURDATE(), INTERVAL 45 DAY), 49.99),  -- David Wilson - old
+(2, DATE_SUB(CURDATE(), INTERVAL 60 DAY), 89.98),  -- Sarah Johnson - old
+(3, DATE_SUB(CURDATE(), INTERVAL 90 DAY), 129.98); -- Michael Brown - old
+
+OUTPUT: Inserted vales in the tables - "SELECT * FROM order"
+
+1	1	2025-11-20	79.98
+2	2	2025-11-15	149.97
+3	1	2025-11-10	99.99
+4	3	2025-11-05	29.99
+5	4	2025-10-31	199.98
+6	5	2025-10-11	49.99
+7	2	2025-09-26	89.98
+8	3	2025-08-27	129.98
+
+
+			
+
+
+
