@@ -1,0 +1,51 @@
+# MySQL-Tasks
+
+Overview
+- MySQL-Tasks is a curated collection of hands-on MySQL exercises, sample schemas, seed data, solutions and small utility scripts intended for learning, practicing and testing real-world SQL patterns (joins, aggregations, window functions, transactions, indexing and optimization).
+
+Quick start (local)
+1. Ensure MySQL server is running and you have a client:
+   mysql -u root -p
+2. Create and prepare the database:
+   mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS mysql_tasks;"
+   mysql -u root -p mysql_tasks < schema.sql
+   mysql -u root -p mysql_tasks < seed_data.sql
+3. Run a task interactively:
+   mysql -u root -p mysql_tasks
+   SOURCE tasks/task_01.sql;
+
+Common commands
+- Import a file: mysql -u root -p mysql_tasks < path/to/file.sql
+- Run a script inside client: SOURCE path/to/file.sql;
+- Export query results: mysql -u root -p -D mysql_tasks -e "SELECT * FROM users;" > out.csv
+
+Project layout (recommended)
+- schema.sql            — table definitions, constraints, indexes
+- seed_data.sql         — test data inserts
+- tasks/                — exercises for learners (task_01.sql, ...)
+- solutions/            — reference solutions (optional per task)
+- tests/                — scripts or expected outputs for validation
+- docker/               — optional Dockerfiles/docker-compose.yml
+
+Example tasks (what you'll find)
+- Basic SELECTs, filters and aggregations
+- Multi-table JOINs and subqueries
+- Window functions (ROW_NUMBER, RANK, running totals)
+- Transactions and error handling
+- Indexing and query plan inspection (EXPLAIN)
+
+SQL style & best practices
+- Use explicit JOIN ... ON syntax (avoid comma joins).
+- Prefer explicit column lists (avoid SELECT *) in solutions.
+- Add comments to explain non-trivial logic.
+- Use prepared test data and deterministic ORDER BY clauses for tests.
+
+Testing approaches
+- Manual: Load schema + seed, run task SQL, compare output to expected.
+- Simple script (bash):
+  mysql -u root -p mysql_tasks < schema.sql
+  mysql -u root -p mysql_tasks < seed_data.sql
+  mysql -u root -p mysql_tasks < tasks/task_01.sql > out.txt
+  diff out.txt expected/task_01_expected.txt
+- CI: Add a lightweight container job that loads schema and runs SQL files, then validates output.
+
